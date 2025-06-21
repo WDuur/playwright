@@ -26,6 +26,10 @@ cd your-project
 ```bash
 npm install
 ```
+### 2.a Install dotenv
+```bash
+npx install dotenv
+```
 
 ### 3. Install Playwright browsers
 
@@ -49,6 +53,7 @@ npx playwright test
 
 ```bash
 npx playwright test --headed
+npx playwright test --ui
 ```
 
 ### Run a specific test file
