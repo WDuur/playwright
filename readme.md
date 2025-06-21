@@ -1,147 +1,56 @@
-# 🎭 Playwright End-to-End Test Suite
+# playwright-bdd-example
 
-This project contains end-to-end (E2E) tests using [Microsoft Playwright](https://playwright.dev/). Playwright enables fast and reliable testing for web applications across Chromium, Firefox, and WebKit.
+Example project that uses [playwright-bdd](https://github.com/vitalets/playwright-bdd) to run BDD tests.
 
----
+> [!IMPORTANT]
+> If you are using [Yarn Plug'n'Play](https://yarnpkg.com/features/pnp), please check out [yarn-pnp](https://github.com/vitalets/playwright-bdd-example/tree/yarn-pnp) branch. 
 
-## 🧰 Requirements
+## How to report a bug
 
-- [Node.js](https://nodejs.org/) v16+ recommended
-- npm (comes with Node.js)
-- Git (optional, for version control)
+1. [Fork](https://github.com/vitalets/playwright-bdd-example/fork) the repo!
+2. Clone it to your local machine
 
----
+   ```
+   git clone https://github.com/YOUR_GITHUB_USERNAME/playwright-bdd-example.git
+   ```
 
-## 🚀 Getting Started
+3. Change directory to `playwright-bdd-example`
 
-### 1. Clone the repository (if applicable)
+   ```
+   cd playwright-bdd-example
+   ```
 
-```bash
-git clone https://github.com/your-org/your-project.git
-cd your-project
-```
+4. Install dependencies
 
-### 2. Install dependencies
+   ```
+   npm install
+   ```
 
-```bash
-npm install
-```
+5. Install browsers
 
-### 3. Install Playwright browsers
+   ```
+   npx playwright install
+   ```
 
-```bash
-npx playwright install
-```
+6. Run tests
 
-This installs Chromium, Firefox, and WebKit for testing.
+   ```
+   npm test
+   ```
 
----
+   Output:
 
-## 🧪 Running Tests
+   ```
+   Running 2 tests using 1 worker
+   2 passed (2.3s)
+   ```
 
-### Run all tests
+7. Make changes reproducing a bug
 
-```bash
-npx playwright test
-```
-
-### Run tests with UI (headed mode)
-
-```bash
-npx playwright test --headed
-```
-
-### Run a specific test file
-
-```bash
-npx playwright test tests/example.spec.ts
-```
-
----
-
-## 🕵️ Debugging / Viewing Test Runs
-
-### Show the test runner with UI (Playwright Test Inspector)
-
-```bash
-npx playwright test --debug
-```
-
----
-
-## 📸 Test Reports
-
-After running tests, a test report is generated:
-
-```bash
-npx playwright show-report
-```
-
-You can also configure automatic report generation in `playwright.config.ts`.
-
----
-
-## ⚙️ Configuration
-
-Playwright uses a configuration file:
-
-```ts
-// playwright.config.ts
-import { defineConfig } from '@playwright/test';
-
-export default defineConfig({
-  testDir: './tests',
-  use: {
-    baseURL: 'https://your-app-url.com',
-    headless: true,
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
-  },
-});
-```
-
-You can override settings using CLI flags.
-
----
-
-## 🧼 Cleanup
-
-To remove Playwright’s downloaded browsers:
-
-```bash
-npx playwright install --with-deps
-```
-
-Or remove `.playwright` and `node_modules`:
-
-```bash
-rm -rf node_modules .playwright
-```
-
----
-
-## 📁 Project Structure (Example)
-
-```
-.
-├── tests/                  # Your test files
-│   └── example.spec.ts
-├── playwright.config.ts    # Playwright configuration
-├── package.json
-└── README.md
-```
-
----
-
-## 📚 Useful Links
-
-- [Playwright Documentation](https://playwright.dev/docs/intro)
-- [Playwright Test API](https://playwright.dev/docs/test-api)
-- [Playwright GitHub](https://github.com/microsoft/playwright)
-
----
-
-## 💬 Need Help?
-
-Open an issue or reach out to your QA/dev team.
-
+8. Commit and push changes
+   ```
+   git add .
+   git commit -m'repro for playwright-bdd issue xxx'
+   git push
+   ```
+9. [Open a pull-request](https://github.com/vitalets/playwright-bdd-example/pulls) and share the link
