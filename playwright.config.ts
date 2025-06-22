@@ -18,7 +18,11 @@ export default defineConfig({
   use: {
     screenshot: 'on',
     trace: 'on',
+    baseURL: process.env.BASE_URL,
+    viewport: { width: 1280, height: 720 },
   },
+  timeout: 30 * 1000,                    
+  retries: 1, 
   projects: [
     {
       name: 'chromium',
