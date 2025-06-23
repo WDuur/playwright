@@ -1,17 +1,32 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
+import { defineBddConfig, cucumberReporter } from 'playwright-bdd';
 
-require('dotenv').config();
+const testDir = defineBddConfig({
+  features: 'features/*.feature',
+  steps: 'features/steps/*.ts',
+});
 
 export default defineConfig({
+  testDir,
+  reporter: [
+    cucumberReporter('html', {
+      outputFile: 'cucumber-report/index.html',
+      externalAttachments: true,
+    }),
+    ['html', { open: 'never' }],
+  ],
   use: {
-    baseURL: process.env.BASE_URL ,   // ✅ Hier stel je je basis-URL in
-    headless: true,                      // Zet op false voor visuele browser
+    screenshot: 'on',
+    trace: 'on',
+    baseURL: process.env.BASE_URL,
     viewport: { width: 1280, height: 720 },
-    ignoreHTTPSErrors: true,
-    screenshot: 'only-on-failure',       // of 'on', 'off'
-    video: 'retain-on-failure',          // of 'on', 'off'
   },
-  timeout: 30 * 1000,                    // 30 seconden per test
-  retries: 1,                            // Herprobeer bij falen
-  testDir: './tests',                    // Map waar je tests staan
+  timeout: 30 * 1000,                    
+  retries: 1, 
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+  ],
 });

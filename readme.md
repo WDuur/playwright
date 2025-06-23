@@ -1,41 +1,36 @@
-# 🎭 Playwright End-to-End Test Suite
+# playwright-bdd-example
 
-This project contains end-to-end (E2E) tests using [Microsoft Playwright](https://playwright.dev/). Playwright enables fast and reliable testing for web applications across Chromium, Firefox, and WebKit.
+Example project that uses [playwright-bdd](https://github.com/vitalets/playwright-bdd) to run BDD tests.
 
----
+> [!IMPORTANT]
+> If you are using [Yarn Plug'n'Play](https://yarnpkg.com/features/pnp), please check out [yarn-pnp](https://github.com/vitalets/playwright-bdd-example/tree/yarn-pnp) branch. 
 
-## 🧰 Requirements
+## How to report a bug
 
-- [Node.js](https://nodejs.org/) v16+ recommended
-- npm (comes with Node.js)
-- Git (optional, for version control)
+1. [Fork](https://github.com/vitalets/playwright-bdd-example/fork) the repo!
+2. Clone it to your local machine
 
----
+   ```
+   git clone https://github.com/YOUR_GITHUB_USERNAME/playwright-bdd-example.git
+   ```
 
-## 🚀 Getting Started
+3. Change directory to `playwright-bdd-example`
 
-### 1. Clone the repository (if applicable)
+   ```
+   cd playwright-bdd-example
+   ```
 
-```bash
-git clone https://github.com/your-org/your-project.git
-cd your-project
-```
-
-### 2. Install dependencies
+4. Install dependencies
 
 ```bash
 npm install
 ```
-### 2.a Install dotenv
-```bash
-npx install dotenv
-```
 
-### 3. Install Playwright browsers
+5. Install browsers
 
-```bash
-npx playwright install
-```
+   ```
+   npx playwright install
+   ```
 
 This installs Chromium, Firefox, and WebKit for testing.
 
@@ -53,7 +48,6 @@ npx playwright test
 
 ```bash
 npx playwright test --headed
-npx playwright test --ui
 ```
 
 ### Run a specific test file
