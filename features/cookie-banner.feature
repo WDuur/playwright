@@ -11,3 +11,10 @@ Feature: Cookie banner interaction
     When the user clicks the "Accepteren" button
     Then the cookie banner should disappear
     And the "cookieConsent" cookie should be set to "true"
+
+  Scenario: User dont accepts cookies
+    Given the user visits the homepage
+    Then the cookie banner should be visible
+    When the user clicks the "Weigeren" button
+    Then the cookie banner should disappear
+    And the "cookieConsent" cookie should be set to "false"
