@@ -6,7 +6,7 @@ Feature: Cookie banner interaction
  
   Scenario: User accepts cookies
     Given the user visits the homepage
-    Then the cookie banner should be "visible" 
+    And the cookie banner should be "visible" 
     When the user clicks the "Accepteren" button
     Then the cookie banner should be "not visible" 
     And the "cookieConsent" cookie should be set to "true"
