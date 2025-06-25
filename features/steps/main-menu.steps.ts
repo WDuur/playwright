@@ -33,27 +33,31 @@
             actualItems.push(await submenuLinks.nth(i).innerText());
         }
     });
-    Then('I should see the following submenu items with correct URLs:', async ({ page }, dataTable) => {
-        const rows = dataTable.hashes(); 
-      
-        for (const row of rows) {
-          const { text, url } = row;
-          const link = page.locator(`nav .child-menu .menu-item a`, { hasText: text });
-      
-          await expect(link).toBeVisible();
-          const href = await link.getAttribute('href');
-          expect(href).toBe(url);
 
+    Then('I should see the following submenu items under {string}:', async ({ page }, menuTitle, dataTable) => {
+        const rows = dataTable.hashes();
+      
+        const mainMenu = page.locator(`nav .menu-item a[title="${menuTitle}"]`);
+        await mainMenu.hover();
+      
+        for (const { text, url } of rows) {
+          const submenuLink = page.locator('nav .child-menu .menu-item a', { hasText: text });
+      
+          await expect(submenuLink, `Link with text "${text}" should be visible`).toBeVisible();
+      
+          const href = await submenuLink.getAttribute('href');
+          expect(href).toBe(url);
+      
           const [response] = await Promise.all([
             page.waitForNavigation({ url: `**${url}` }),
-            link.click(),
+            submenuLink.click(),
           ]);
       
           expect(page.url()).toContain(url);
-      
+
           await page.goBack();
           await page.waitForLoadState('domcontentloaded');
-          await page.locator('nav .menu-item a[title="Wat we doen"]').hover();
+          await mainMenu.hover();
         }
       });
       
