@@ -1,6 +1,5 @@
     import {  When, Then } from './fixtures';
     import { expect } from '@playwright/test';
-    // import { page } from '../setup/hooks';
 
 
     Then('the menu item {string} should be visible', async  ({page},dataTable) => {
