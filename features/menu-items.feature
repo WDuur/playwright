@@ -31,3 +31,19 @@ Scenario: The "Kennisbank" menu shows the correct submenu items with correct lin
       | Blogs             | /kennisbank/blogs            |
       | Evenementen       | /kennisbank/events           |
       | Klantcases        | /kennisbank/klantcases       |
+
+Scenario: The "Contact" menu shows the correct submenu items with correct links
+    Given the user visits the homepage
+    When I hover over the "Contact" menu item
+    Then I should see the following submenu items under "Contact":
+      | text                 | url                   |
+      | Zakenvriend van KWF  | /zakenvriend-van-kwf |
+
+
+Scenario: User clicks on the menu button to show the desktop menu
+    Given the user visits the homepage
+    When the user clicks on the desktop menu button
+    Then the desktop menu content should be visible
+    Then the user clicks on the close button in the desktop menu
+    Then the desktop menu content should not be visible
+
