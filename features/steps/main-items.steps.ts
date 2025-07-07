@@ -23,6 +23,12 @@ When('I hover over the {string} menu item', async  ({page}, menuItem: string) =>
     await menuLocator.hover();
 });
 
+Then('I hover over the {string} desktop menu item', async  ({page}, menuItem: string) => {
+    const menuLocator = page.getByRole('link', { name: menuItem });
+    console.log(`Hovering over menu item: ${menuItem}`);
+    await menuLocator.hover();
+});
+
 Then('I should see the following submenu items:', async  ({page},dataTable) => {
     const expectedItems = dataTable.raw().flat();
     const submenuLinks = page.locator('nav .child-menu .menu-item a');
@@ -82,4 +88,13 @@ Then('the desktop menu content should not be visible', async ({page}) => {
     const menu = page.locator('.desktop-menu-wrapper');
     const display = await menu.evaluate((el) => el.style.display);
     expect(display).toBe('none');
+});
+
+Then('I should see the following desktop menu items:', async  ({page},dataTable) => {
+    const submenuLinks = page.locator('.desktop-menu-grid a');
+    const count = await submenuLinks.count();
+    const actualItems = [];
+    for (let i = 0; i < count; i++) {
+        actualItems.push(await submenuLinks.nth(i).innerText());
+    }
 });
