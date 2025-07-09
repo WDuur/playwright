@@ -11,9 +11,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-      - run: npm ci
+      - run: npm install -g pnpm
+      - run: pnpm install --frozen-lockfile
       - run: npx playwright install --with-deps
-      - run: npm test
+      - run: pnpm test
       - uses: actions/upload-artifact@v4
         if: always()
         with:
