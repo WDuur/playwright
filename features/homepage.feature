@@ -1,13 +1,15 @@
-Feature: Playwright Home Page
+Feature: Playwright Homepage
 
-  Scenario: Check home page hero slider
-    When the user visits the homepage
-    Then I see see a slider on the page as heroImage
+@fast
+Scenario: Check homepage hero slider
+  When I am on website homepage
+  Then I see see a slider on the page as heroImage
 
-  Scenario: Check home page hero has 2 slides
-    Then the swiper container should have exactly 2 slides
+@fast
+Scenario: Check that the homepage hero has 2 slides
+  When I am on website homepage
+  Then the swiper should have exactly 2 slides
 
-
-# Scenario: Check home page hero  slider
-#   When I press on the slider last bullet
-#   Then i should see "2" slides are "Active" on the homepage
+Scenario: Check home page hero slider navigation
+  When I click on every bullet at the hero slider
+  Then the corresponding slide is active
