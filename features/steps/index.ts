@@ -1,8 +1,8 @@
 import { expect } from '@playwright/test';
 import { Given, When, Then } from './fixtures';
 
-Given('I am on website home page', async ({ page }) => {
-  await page.goto('https://www.sharevalue.nl' );
+Given('@fast I am on website home page', async ({ page }) => {
+  await page.goto('https://www.sharevalue.nl');
 });
 
 When('I click link {string}', async ({ page }, name: string) => {
@@ -14,4 +14,3 @@ Then('I see in title {string}', async ({ page }, text: string) => {
   console.log(`Title on the page is: ${title}`);
   await expect(page).toHaveTitle(new RegExp(text));
 });
-

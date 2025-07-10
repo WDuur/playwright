@@ -1,0 +1,9 @@
+
+# Lint alleen de staged files
+npx lint-staged
+
+# Typecheck
+npm run typecheck
+
+# Draai alleen snelle/essentiële Playwright tests
+# npm run test:fast
