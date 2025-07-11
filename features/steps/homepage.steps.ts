@@ -15,8 +15,8 @@ Then('I see see a slider on the page as heroImage', async ({ page }) => {
 Then(
   'the swiper should have exactly {int} slides',
   async ({ page }, expectedCount: number) => {
-    const heroSection = page.locator(HERO_SECTION_SELECTOR);
-    const slides = heroSection.locator(SLIDE_SELECTOR);
+    // const heroSection = page.locator(HERO_SECTION_SELECTOR);
+    const slides = page.locator(`${HERO_SECTION_SELECTOR} ${SLIDE_SELECTOR}`);
     await expect(slides).toHaveCount(expectedCount);
   },
 );
@@ -32,7 +32,7 @@ When('I click on every bullet at the hero slider', async function ({ page }) {
   for (let i = 0; i < this.bulletCount; i++) {
     const bullet = bullets.nth(i);
     await bullet.click();
-    await page.waitForTimeout(500); // Reduced timeout for faster tests
+    await page.waitForTimeout(500); 
     this.clickedBulletIndexes.push(i);
   }
 });
