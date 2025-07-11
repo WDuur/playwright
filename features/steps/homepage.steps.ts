@@ -37,13 +37,11 @@ When('I click on every bullet at the hero slider', async function ({ page }) {
   }
 });
 
-
 Then('the corresponding slide is active', async function ({ page }) {
   const swiperSlides = this.heroSection.locator(SLIDE_SELECTOR);
 
   for (const index of this.clickedBulletIndexes) {
     const activeSlide = swiperSlides.nth(index);
-    // Hier check je of deze slide nu echt actief was
     await expect(activeSlide).toHaveClass(/swiper-slide-active/);
   }
 });
