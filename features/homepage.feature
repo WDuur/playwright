@@ -22,10 +22,14 @@ Feature: Playwright Homepage
 
   Scenario: On the homepage the ShareValue expertises are visable
     When I am on website homepage
-    Then I see the expertise segment on the homepage
-    And The segment has "Onze expertises" as title
-    And The segment has "expertises" as label
+    Then I see the "expertise" segment on the homepage
+    And The "expertise" segment has "Onze expertises" as title
+    And The "expertise" segment has "expertises" as label
     Then there is one expertise block for "Azure"
     And there is one expertise block for "Microsoft 365"
     And there is one expertise block for "Power Platform"
     And there is one expertise block for "Development"
+
+  Scenario: On the homepage the is a explanation about ShareValue partners
+    When I am on website homepage
+    Then I see the "partner" segment on the homepage

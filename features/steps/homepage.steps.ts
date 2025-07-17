@@ -2,9 +2,10 @@ import { expect } from '@playwright/test';
 import { When, Then } from './fixtures';
 
 import {
-  HERO_SECTION_SELECTOR,
   BULLET_SELECTOR,
   SLIDE_SELECTOR,
+  SEGMENT_SELECTORS,
+  HERO_SECTION_SELECTOR,
   GLOBAL_PAGE_SELECTOR,
   EXPERTISE_BLOCK_SELECTOR,
 } from './util/selectors';
@@ -54,23 +55,36 @@ Then('I should see a paragraph containing the description about the header', asy
   expect(text && text.trim().length).toBeGreaterThan(0);
 });
 
-Then('I see the expertise segment on the homepage', async ({ page }) => {
-  const heroSection = page.locator(EXPERTISE_BLOCK_SELECTOR);
-  await expect(heroSection).toBeVisible();
+Then('I see the {string} segment on the homepage', async ({ page }, segmentKey: string) => {
+  const selector = SEGMENT_SELECTORS[segmentKey.toLowerCase()];
+  if (!selector) throw new Error(`No selector found for segment: ${segmentKey}`);
+
+  const segment = page.locator(selector);
+  await expect(segment).toBeVisible();
 });
 
-Then('The segment has {string} as title', async ({ page }, segmentTitle: string) => {
-  const title = page.locator(`${EXPERTISE_BLOCK_SELECTOR} h2`);
-  expect(title).toHaveText(segmentTitle);
-});
+Then(
+  'The {string} segment has {string} as title',
+  async ({ page }, segmentKey: string, segmentTitle: string) => {
+    const selector = SEGMENT_SELECTORS[segmentKey.toLowerCase()];
+    const title = page.locator(`${selector} h2`);
+    expect(title).toHaveText(segmentTitle);
+  },
+);
 
-Then('The segment has {string} as label', async ({ page }, segmentLabel: string) => {
-  const label = page.locator(`${EXPERTISE_BLOCK_SELECTOR} aside div`);
-  expect(label).toHaveText(segmentLabel);
-});
+Then(
+  'The {string} segment has {string} as label',
+  async ({ page }, segmentKey: string, segmentLabel: string) => {
+    const selector = SEGMENT_SELECTORS[segmentKey.toLowerCase()];
+    const label = page.locator(`${selector} aside div`);
+    expect(label).toHaveText(segmentLabel);
+  },
+);
 
 Then('there is one expertise block for {string}', async ({ page }, expertise: string) => {
-  const expertiseBlock = page.locator(`${EXPERTISE_BLOCK_SELECTOR} ul li a[title="${expertise}"]`);
+  const expertiseBlock = page.locator(
+    `${SEGMENT_SELECTORS['expertise']} ul li a[title="${expertise}"]`,
+  );
   await expect(expertiseBlock).toBeVisible();
   const expertiseUrl = expertise.replace(/\s+/g, '-').toLowerCase();
   const href = await expertiseBlock.getAttribute('href');
