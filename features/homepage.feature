@@ -19,3 +19,13 @@ Feature: Playwright Homepage
     When I am on website homepage
     Then I should see a header with the text "ShareValue, de standaard voorbij"
     And I should see a paragraph containing the description about the header
+
+  Scenario: On the homepage the ShareValue expertises are visable
+    When I am on website homepage
+    Then I see the expertise segment on the homepage
+    And The segment has "Onze expertises" as title
+    And The segment has "expertises" as label
+    Then there is one expertise block for "Azure"
+    And there is one expertise block for "Microsoft 365"
+    And there is one expertise block for "Power Platform"
+    And there is one expertise block for "Development"

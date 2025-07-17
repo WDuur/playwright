@@ -6,8 +6,8 @@ import {
   BULLET_SELECTOR,
   SLIDE_SELECTOR,
   GLOBAL_PAGE_SELECTOR,
-} from './selectors';
-import { stringify } from 'querystring';
+  EXPERTISE_BLOCK_SELECTOR,
+} from './util/selectors';
 
 Then('I see a slider on the page as heroImage', async ({ page }) => {
   const heroSection = page.locator(HERO_SECTION_SELECTOR);
@@ -52,4 +52,27 @@ Then('I should see a paragraph containing the description about the header', asy
   await expect(paragraph).toBeVisible();
   const text = await paragraph.textContent();
   expect(text && text.trim().length).toBeGreaterThan(0);
+});
+
+Then('I see the expertise segment on the homepage', async ({ page }) => {
+  const heroSection = page.locator(EXPERTISE_BLOCK_SELECTOR);
+  await expect(heroSection).toBeVisible();
+});
+
+Then('The segment has {string} as title', async ({ page }, segmentTitle: string) => {
+  const title = page.locator(`${EXPERTISE_BLOCK_SELECTOR} h2`);
+  expect(title).toHaveText(segmentTitle);
+});
+
+Then('The segment has {string} as label', async ({ page }, segmentLabel: string) => {
+  const label = page.locator(`${EXPERTISE_BLOCK_SELECTOR} aside div`);
+  expect(label).toHaveText(segmentLabel);
+});
+
+Then('there is one expertise block for {string}', async ({ page }, expertise: string) => {
+  const expertiseBlock = page.locator(`${EXPERTISE_BLOCK_SELECTOR} ul li a[title="${expertise}"]`);
+  await expect(expertiseBlock).toBeVisible();
+  const expertiseUrl = expertise.replace(/\s+/g, '-').toLowerCase();
+  const href = await expertiseBlock.getAttribute('href');
+  expect(href).toBe(`/wat-we-doen/${expertiseUrl}`);
 });

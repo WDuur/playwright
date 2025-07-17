@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test';
 import { Given, When, Then } from './fixtures';
 
-import { BASE_DOMAIN } from './selectors';
+import { BASE_DOMAIN } from './util/selectors';
 
 Given('I am on website homepage', async ({ page }) => {
   await page.goto(BASE_DOMAIN);
