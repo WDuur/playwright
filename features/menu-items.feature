@@ -1,7 +1,7 @@
 Feature: Main menu interaction
 
 Scenario: The Main menu is visible
-    Given the user visits the homepage
+    Given I am on website homepage
     Then in the menu there is a ShareValue logo
     And I should see the following submenu items:
       | Wat we doen        |
