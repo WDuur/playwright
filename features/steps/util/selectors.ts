@@ -2,6 +2,7 @@ export const BASE_DOMAIN = 'https://www.sharevalue.nl';
 
 export const BULLET_SELECTOR = '.swiper-pagination-bullet';
 export const SLIDE_SELECTOR = 'swiper-slide';
+export const SLIDE_SELECTOR_ACTIVE = `${SLIDE_SELECTOR}.swiper-slide-active`;
 
 // SECTION SELCTORS
 export const HERO_SECTION_SELECTOR = 'section[__component="hero.primary-slider"]';

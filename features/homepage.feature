@@ -58,5 +58,4 @@ Feature: Playwright Homepage
     Then the "quotes" should have exactly "5" slides with quotes
     When I click on every bullet at the "quotes" slider
 
-
-# Then the corresponding slide is active
+# Then the corresponding "quote" slide is active

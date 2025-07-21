@@ -4,10 +4,10 @@ import { When, Then } from './fixtures';
 import {
   BULLET_SELECTOR,
   SLIDE_SELECTOR,
+  SLIDE_SELECTOR_ACTIVE,
   SEGMENT_SELECTORS,
   HERO_SECTION_SELECTOR,
   GLOBAL_PAGE_SELECTOR,
-  QUOTES_SELECTOR,
 } from './util/selectors';
 
 import { CUSTOMERS_SELECTOR } from './util/customer-cases';
@@ -178,38 +178,30 @@ Then(
     await expect(slides).toHaveCount(expectedCount);
   },
 );
-
 When(
   'I click on every bullet at the {string} slider',
   async function ({ page }, segmentKey: string) {
     const segment = page.locator(SEGMENT_SELECTORS[segmentKey.toLowerCase()]);
-    console.log('segment html', segment);
-    this.selectedSegment = segment;
 
     const bullets = segment.locator(BULLET_SELECTOR);
-    this.bulletCount = await bullets.count();
-    this.clickedBulletIndexes = [];
+    const bulletCount = await bullets.count();
+    const clickedSegmentBulletIndexes = [];
 
-    for (let i = 0; i < this.bulletCount; i++) {
+    for (let i = 0; i < bulletCount; i++) {
       const bullet = bullets.nth(i);
-
       await bullet.click();
       await page.waitForTimeout(500);
 
-      const activeSlide = segment.locator('swiper-slide.swiper-slide-active');
+      const expectedAriaLabel = `${i + 1} / ${bulletCount}`;
+      const activeSlide = segment.locator(SLIDE_SELECTOR_ACTIVE);
+      await expect(activeSlide).toHaveAttribute('aria-label', expectedAriaLabel);
+
       const h2 = activeSlide.locator('h2');
       const h4 = activeSlide.locator('h4');
       await expect(h2, `<h2> ontbreekt in slide ${i + 1}`).toHaveText(/.+/);
       await expect(h4, `<h4> ontbreekt in slide ${i + 1}`).toHaveText(/.+/);
-      this.clickedBulletIndexes.push(i);
+
+      clickedSegmentBulletIndexes.push(i);
     }
   },
 );
-
-Then('the corresponding {string} slide is active', async function ({ page }) {
-  const swiperSlides = this.heroSection.locator(SLIDE_SELECTOR);
-  for (const index of this.clickedBulletIndexes) {
-    const activeSlide = swiperSlides.nth(index);
-    await expect(activeSlide).toHaveClass(/swiper-slide-active/);
-  }
-});
