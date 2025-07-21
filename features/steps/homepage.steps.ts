@@ -192,15 +192,15 @@ When(
 
     for (let i = 0; i < this.bulletCount; i++) {
       const bullet = bullets.nth(i);
-      console.log('>>>> ', bullets);
-      const slide = bullets.nth(i);
 
-      const title = slide.locator('h2');
-      const paragraph = slide.locator('h4');
-      await expect(title, `Missing <h2> in block ${i + 1}`).toHaveText(/.+/);
-      await expect(paragraph, `Missing <h2> in block ${i + 1}`).toHaveText(/.+/);
       await bullet.click();
       await page.waitForTimeout(500);
+
+      const activeSlide = segment.locator('swiper-slide.swiper-slide-active');
+      const h2 = activeSlide.locator('h2');
+      const h4 = activeSlide.locator('h4');
+      await expect(h2, `<h2> ontbreekt in slide ${i + 1}`).toHaveText(/.+/);
+      await expect(h4, `<h4> ontbreekt in slide ${i + 1}`).toHaveText(/.+/);
       this.clickedBulletIndexes.push(i);
     }
   },
