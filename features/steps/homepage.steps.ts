@@ -178,14 +178,16 @@ Then(
     await expect(slides).toHaveCount(expectedCount);
   },
 );
+
 When(
   'I click on every bullet at the {string} slider',
   async function ({ page }, segmentKey: string) {
     const segment = page.locator(SEGMENT_SELECTORS[segmentKey.toLowerCase()]);
 
+    this.slideSection = segment;
     const bullets = segment.locator(BULLET_SELECTOR);
     const bulletCount = await bullets.count();
-    const clickedSegmentBulletIndexes = [];
+    this.clickedSegmentBulletIndexes = [];
 
     for (let i = 0; i < bulletCount; i++) {
       const bullet = bullets.nth(i);
@@ -201,7 +203,63 @@ When(
       await expect(h2, `<h2> ontbreekt in slide ${i + 1}`).toHaveText(/.+/);
       await expect(h4, `<h4> ontbreekt in slide ${i + 1}`).toHaveText(/.+/);
 
-      clickedSegmentBulletIndexes.push(i);
+      this.clickedSegmentBulletIndexes.push(i);
+    }
+  },
+);
+
+Then('the corresponding {string} slide is active', async function ({ page }, segmentKey) {
+  const swiperSlides = this.slideSection.locator(SLIDE_SELECTOR);
+
+  for (const index of this.clickedSegmentBulletIndexes) {
+    const activeSlide = swiperSlides.nth(index);
+    await expect(activeSlide).toHaveClass(/swiper-slide-active/);
+  }
+});
+
+Then(
+  'The last {string} {string} where correctly showen',
+  async ({ page }, count: string, segmentKey: string) => {
+    const expectedCount = parseInt(count);
+    const segment = page.locator(SEGMENT_SELECTORS[segmentKey.toLowerCase()]);
+    const blogposts = segment.locator('a.post-wrapper');
+
+    await expect(blogposts).toHaveCount(expectedCount * 2);
+
+    for (let i = 0; i < expectedCount; i++) {
+      const post = blogposts.nth(i);
+
+      const image = post.locator('img.post-image');
+      await expect(image).toBeVisible();
+
+      const title = post.locator('h5');
+      await expect(title).toBeVisible();
+      await expect(title).not.toHaveText('');
+
+      const label = post.locator('.label-primary');
+      await expect(label).toHaveText(/blog/i);
+
+      const intro = post.locator('p');
+      await expect(intro).toBeVisible();
+      await expect(intro).not.toHaveText('');
+
+      const author = post.locator('img.rounded-full');
+      await expect(author).toBeVisible();
+
+      // TODO: authorName is not visible
+      // const authorName = post.locator('div.flex.items-center span').first();
+      // console.log('authorName:', authorName);
+      // await expect(authorName).toBeVisible();
+
+      const dateSpan = post.locator('div.flex.items-center span').nth(1);
+      await expect(dateSpan).toHaveText(/\d{2}-\d{2}-\d{4}/);
+
+      // TODO:Heeft leestijd
+      // const readingTime = post.locator('span:has-text("minuten lezen")');
+      // await expect(readingTime).toBeVisible();
+
+      const firstLabel = post.locator('.label').first();
+      await expect(firstLabel).not.toHaveText('');
     }
   },
 );

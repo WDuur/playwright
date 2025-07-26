@@ -58,4 +58,10 @@ Feature: Playwright Homepage
     Then the "quotes" should have exactly "5" slides with quotes
     When I click on every bullet at the "quotes" slider
 
-# Then the corresponding "quote" slide is active
+  # Then the corresponding "quote" slide is active
+  Scenario: On the homepage are the latest blogposts
+    When I am on website homepage
+    Then I see the "blogposts" segment on the homepage
+    And The "blogposts" segment has "Onze updates" as label
+    And The "blogposts" segment has "Wat speelt er bij ShareValue?" as title
+    And The last "6" "blogposts" where correctly showen

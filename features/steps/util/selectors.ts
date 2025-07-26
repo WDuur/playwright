@@ -13,6 +13,7 @@ export const HERO_SECONDARY_SELECTOR = 'section[__component="hero.secondary"]';
 export const HOW_WE_WORK_SELECTOR = 'section[__component="global.how-we-work"]';
 export const CUSTOMERS_SELECTOR = 'section[__component="global.customers"]';
 export const QUOTES_SELECTOR = 'section[__component="global.quotes"]';
+export const LAST_POST_SELECTOR = 'section[__component="strapi.latest-posts"]';
 
 export const SEGMENT_SELECTORS: Record<string, string> = {
   expertise: EXPERTISE_BLOCK_SELECTOR,
@@ -23,4 +24,5 @@ export const SEGMENT_SELECTORS: Record<string, string> = {
   work: HOW_WE_WORK_SELECTOR,
   clients: CUSTOMERS_SELECTOR,
   quotes: QUOTES_SELECTOR,
+  blogposts: LAST_POST_SELECTOR,
 };
